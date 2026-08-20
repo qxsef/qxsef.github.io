@@ -5,59 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>qxsef | Portfolio</title>
     <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-sub: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+        }
+
+        .light-mode {
+            --bg-color: #f6f8fa;
+            --card-bg: #ffffff;
+            --text-main: #24292f;
+            --text-sub: #57606a;
+            --accent: #0969da;
+            --border: #d0d7de;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
+
         body {
-            background-color: #0d1117;
-            color: #c9d1d9;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
-        .card {
-            background: #161b22;
+
+        .container {
+            background: var(--card-bg);
             padding: 2.5rem;
             border-radius: 16px;
-            border: 1px solid #30363d;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.8s ease-in-out;
         }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            float: right;
+            font-size: 0.9rem;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-top: 15px;
+            border: 3px solid var(--accent);
+        }
+
         h1 {
-            color: #58a6ff;
-            margin-bottom: 0.5rem;
-            font-size: 2rem;
+            color: var(--accent);
+            margin: 10px 0 5px;
+            font-size: 1.8rem;
         }
+
         p {
-            color: #8b949e;
-            margin-bottom: 1.5rem;
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
         }
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: #238636;
-            color: white;
-            text-decoration: none;
+
+        .projects {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .projects h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .project-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            padding: 12px;
             border-radius: 8px;
-            font-weight: bold;
-            transition: 0.3s;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
         }
-        .btn:hover {
-            background-color: #2ea043;
-            transform: translateY(-2px);
+
+        .project-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .project-card h4 {
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .project-card p {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .socials a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Halo, Aku qxsef! 👋</h1>
-        <p>Selamat datang di website resmiku. Sedang mengulik hal-hal keren seputar teknologi dan pemrogramam.</p>
-        <a href="https://github.com/qxsef" class="btn">Kunjungi GitHub</a>
+
+    <div class="container">
+        <button class="theme-btn" onclick="toggleTheme()">🌙 / ☀️ Mode</button>
+        <div style="clear: both;"></div>
+        
+        <img src="https://github.com/qxsef.png" alt="qxsef" class="profile-img">
+        <h1>qxsef</h1>
+        <p>Developer & Tech Enthusiast</p>
+
+        <div class="projects">
+            <h3>Proyek Saya 🚀</h3>
+            <div class="project-card">
+                <h4>Website Utama</h4>
+                <p>Portofolio pribadi yang dibuat menggunakan HTML, CSS, dan GitHub Pages.</p>
+            </div>
+            <div class="project-card">
+                <h4>Proyek Mendatang</h4>
+                <p>Sedang dalam proses eksplorasi dan pengembangan web app baru.</p>
+            </div>
+        </div>
+
+        <div class="socials">
+            <a href="https://github.com/qxsef" target="_blank">GitHub</a>
+            <a href="#" onclick="alert('Tambahkan link media sosialmu di kode!'); return false;">Instagram</a>
+        </div>
     </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+    </script>
+
 </body>
 </html>
