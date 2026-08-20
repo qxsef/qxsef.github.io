@@ -3,118 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>qxsef | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Aldymea Nurhakim | Qxsef</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <style>
-        /* Variabel Warna */
-        :root {
-            --bg-body: #1a1a2e;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-main: #ffffff;
-            --accent: #00d2ff;
-            --btn-hover: #00d2ff;
-        }
-
-        /* Variabel untuk Light Mode */
-        .light-mode {
-            --bg-body: #f0f2f5;
-            --card-bg: rgba(0, 0, 0, 0.05);
-            --text-main: #1a1a2e;
-            --accent: #ff4757;
-            --btn-hover: #ff4757;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: var(--bg-body);
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            transition: background 0.4s ease;
         }
 
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 2.5rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* --- 1. ANIMASI LOADING (PRELOADER) --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffffff;
+            animation: textSwitch 3s forwards;
+        }
+
+        @keyframes textSwitch {
+            0% { opacity: 0; transform: translateY(10px); }
+            15% { opacity: 1; transform: translateY(0); }
+            40% { opacity: 1; }
+            50% { opacity: 0; transform: translateY(-10px); }
+            65% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* --- 2. TAMPILAN UTAMA & ID CARD --- */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
             text-align: center;
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tali & Gantungan ID Card */
+        .lanyard-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: -15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .strap {
+            width: 35px;
+            height: 70px;
+            background: #222;
+            border-left: 2px solid #333;
+            border-right: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .ring {
+            width: 25px;
+            height: 25px;
+            border: 4px solid #888;
+            border-radius: 50%;
+            margin-top: -5px;
+        }
+
+        /* Kartu ID Card Interaktif */
+        .id-card {
+            background: #ffffff;
+            color: #121212;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            cursor: grab;
+            user-select: none;
+            transform-origin: top center;
+            transition: transform 0.1s ease-out;
             position: relative;
         }
 
-        /* Tombol Toggle */
-        .theme-toggle {
+        .id-card:active {
+            cursor: grabbing;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #333;
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .watermark {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
+            bottom: 10px;
+            right: 15px;
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 2.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            transform: rotate(-5deg);
         }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--accent);
-            margin-bottom: 20px;
-            padding: 5px;
+        /* Informasi Teks */
+        .intro-text {
+            margin-top: 30px;
+            text-align: left;
         }
 
-        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 25px; }
+        .intro-text h3 {
+            font-size: 1.1rem;
+            color: #aaa;
+            font-weight: 400;
+        }
 
-        .links { display: flex; flex-direction: column; gap: 15px; }
+        .intro-text h3 span {
+            color: #fff;
+            font-weight: 700;
+        }
 
-        .link-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            padding: 12px;
+        .intro-text h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-top: 5px;
+        }
+
+        /* Tombol Sosial Media */
+        .social-links {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 14px;
             border-radius: 12px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 700;
+            border: 1px solid #333;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .link-btn:hover {
-            background: var(--btn-hover);
-            color: #fff;
-            transform: translateY(-3px);
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <button class="theme-toggle" onclick="toggleTheme()">Mode</button>
-        
-        <img src="https://github.com/qxsef.png" alt="Profile" class="avatar">
-        <h1>qxsef</h1>
-        <p>Creative Developer & Content Creator</p>
+    <!-- 1. PRELOADER ANIMASI -->
+    <div id="loader">
+        <div class="loader-text" id="loaderText">Qxsef</div>
+    </div>
 
-        <div class="links">
-            <a href="https://github.com/qxsef" class="link-btn" target="_blank">GitHub</a>
-            <a href="https://www.instagram.com/quixotea_" class="link-btn" target="_blank">Instagram</a>
-            <a href="https://www.tiktok.com/@quixotea" class="link-btn" target="_blank">TikTok</a>
+    <!-- 2. KONTEN UTAMA -->
+    <div class="container" id="mainContent">
+        
+        <!-- Tali ID Card -->
+        <div class="lanyard-wrapper">
+            <div class="strap">QXSEF</div>
+            <div class="ring"></div>
+        </div>
+
+        <!-- ID Card (Bisa Digoyang/Gesaer) -->
+        <div class="id-card" id="idCard">
+            <div class="photo-frame">
+                <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
+                <div class="watermark">Aldymea</div>
+            </div>
+        </div>
+
+        <!-- Deskripsi -->
+        <div class="intro-text">
+            <h3>Halo! Saya <span>Aldymea N.</span></h3>
+            <h1>Content Creator & Developer.</h1>
+        </div>
+
+        <!-- Links -->
+        <div class="social-links">
+            <a href="https://github.com/qxsef" target="_blank" class="btn">
+                <span>GitHub</span> <span>↗</span>
+            </a>
+            <a href="https://www.instagram.com/quixotea_" target="_blank" class="btn">
+                <span>Instagram</span> <span>↗</span>
+            </a>
+            <a href="https://www.tiktok.com/@quixotea" target="_blank" class="btn">
+                <span>TikTok</span> <span>↗</span>
+            </a>
         </div>
     </div>
 
     <script>
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
+        // --- ANIMASI TEXT LOADING ---
+        const loaderText = document.getElementById('loaderText');
+        
+        // Ganti teks ke nama lengkap di pertengahan loading
+        setTimeout(() => {
+            loaderText.innerText = "Aldymea Nurhakim";
+        }, 1500);
+
+        // Selesaikan loading setelah 3 detik
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                document.getElementById('loader').style.visibility = 'hidden';
+                document.getElementById('mainContent').classList.add('show');
+            }, 3000);
+        });
+
+        // --- EFEK INTERAKTIF ID CARD (GOYANG SAAT DITARIK) ---
+        const card = document.getElementById('idCard');
+        let isDragging = false;
+        let startX, startY;
+
+        card.addEventListener('mousedown', startDrag);
+        card.addEventListener('touchstart', startDrag);
+
+        window.addEventListener('mousemove', drag);
+        window.addEventListener('touchmove', drag);
+
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchend', endDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.clientX || e.touches[0].clientX;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const currentX = e.clientX || e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const rotate = diffX * 0.15; // Mengatur kemiringan saat ditarik
+            card.style.transform = `rotate(${rotate}deg) translateX(${diffX * 0.5}px)`;
+        }
+
+        function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            // Kembalikan ke posisi semula dengan efek membal
+            card.style.transform = 'rotate(0deg) translateX(0px)';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            setTimeout(() => { card.style.transition = 'transform 0.1s ease-out'; }, 500);
         }
     </script>
-
 </body>
 </html>
