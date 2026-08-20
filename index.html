@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aldymea Nurhakim | Qxsef</title>
+    <title>Aldymea N. | QXSEF</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,7 +23,7 @@
             align-items: center;
         }
 
-        /* --- 1. ANIMASI LOADING (PRELOADER) --- */
+        /* PRELOADER ANIMASI */
         #loader {
             position: fixed;
             top: 0;
@@ -56,7 +56,7 @@
             100% { opacity: 0; }
         }
 
-        /* --- 2. TAMPILAN UTAMA & ID CARD --- */
+        /* CONTAINER UTAMA */
         .container {
             width: 100%;
             max-width: 400px;
@@ -72,51 +72,63 @@
             transform: translateY(0);
         }
 
-        /* Tali & Gantungan ID Card */
-        .lanyard-wrapper {
-            display: flex;
-            flex-direction: column;
+        /* LOGO BRAND KEREN */
+        .logo-box {
+            display: inline-flex;
             align-items: center;
-            margin-bottom: -15px;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 18px;
+            border-radius: 30px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-box span {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* SIMULASI TALI LENTUR (CANVAS) */
+        .lanyard-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            margin-bottom: -10px;
+        }
+
+        canvas#ropeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ID CARD ELASTIS */
+        .id-card-wrapper {
             position: relative;
             z-index: 2;
+            perspective: 1000px;
         }
 
-        .strap {
-            width: 35px;
-            height: 70px;
-            background: #222;
-            border-left: 2px solid #333;
-            border-right: 2px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.6rem;
-            font-weight: bold;
-            color: #666;
-            letter-spacing: 1px;
-        }
-
-        .ring {
-            width: 25px;
-            height: 25px;
-            border: 4px solid #888;
-            border-radius: 50%;
-            margin-top: -5px;
-        }
-
-        /* Kartu ID Card Interaktif */
         .id-card {
             background: #ffffff;
             color: #121212;
             border-radius: 20px;
             padding: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
             cursor: grab;
             user-select: none;
             transform-origin: top center;
-            transition: transform 0.1s ease-out;
-            position: relative;
+            touch-action: none;
         }
 
         .id-card:active {
@@ -136,6 +148,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
         }
 
         .watermark {
@@ -148,9 +161,9 @@
             transform: rotate(-5deg);
         }
 
-        /* Informasi Teks */
+        /* DESKRIPSI JURUSAN TJKT */
         .intro-text {
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: left;
         }
 
@@ -169,10 +182,16 @@
             font-size: 2.2rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-top: 5px;
+            margin: 5px 0 12px 0;
         }
 
-        /* Tombol Sosial Media */
+        .intro-text p {
+            font-size: 0.9rem;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* TOMBOL SOSIAL MEDIA */
         .social-links {
             margin-top: 25px;
             display: flex;
@@ -201,35 +220,42 @@
 </head>
 <body>
 
-    <!-- 1. PRELOADER ANIMASI -->
+    <!-- PRELOADER -->
     <div id="loader">
-        <div class="loader-text" id="loaderText">Qxsef</div>
+        <div class="loader-text" id="loaderText">QXSEF</div>
     </div>
 
-    <!-- 2. KONTEN UTAMA -->
+    <!-- KONTEN UTAMA -->
     <div class="container" id="mainContent">
         
-        <!-- Tali ID Card -->
-        <div class="lanyard-wrapper">
-            <div class="strap">QXSEF</div>
-            <div class="ring"></div>
+        <!-- LOGO BRAND -->
+        <div class="logo-box">
+            <span>QXSEF</span>
         </div>
 
-        <!-- ID Card (Bisa Digoyang/Gesaer) -->
-        <div class="id-card" id="idCard">
-            <div class="photo-frame">
-                <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
-                <div class="watermark">Aldymea</div>
+        <!-- TALI ID CARD (DRAWN VIA CANVAS) -->
+        <div class="lanyard-container">
+            <canvas id="ropeCanvas"></canvas>
+        </div>
+
+        <!-- ID CARD LENTUR -->
+        <div class="id-card-wrapper">
+            <div class="id-card" id="idCard">
+                <div class="photo-frame">
+                    <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
+                    <div class="watermark">Aldymea</div>
+                </div>
             </div>
         </div>
 
-        <!-- Deskripsi -->
+        <!-- DESKRIPSI -->
         <div class="intro-text">
             <h3>Halo! Saya <span>Aldymea N.</span></h3>
-            <h1>Content Creator & Developer.</h1>
+            <h1>Siswa TJKT.</h1>
+            <p>Fokus pada Teknik Jaringan Komputer dan Telekomunikasi. Berpengalaman dalam konfigurasi jaringan, sistem komputer, serta antusias dalam dunia pengembangan web dan teknologi digital.</p>
         </div>
 
-        <!-- Links -->
+        <!-- LINKS -->
         <div class="social-links">
             <a href="https://github.com/qxsef" target="_blank" class="btn">
                 <span>GitHub</span> <span>↗</span>
@@ -244,58 +270,107 @@
     </div>
 
     <script>
-        // --- ANIMASI TEXT LOADING ---
+        // ANIMASI LOADING
         const loaderText = document.getElementById('loaderText');
-        
-        // Ganti teks ke nama lengkap di pertengahan loading
-        setTimeout(() => {
-            loaderText.innerText = "Aldymea Nurhakim";
-        }, 1500);
+        setTimeout(() => { loaderText.innerText = "Aldymea Nurhakim"; }, 1500);
 
-        // Selesaikan loading setelah 3 detik
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 document.getElementById('loader').style.visibility = 'hidden';
                 document.getElementById('mainContent').classList.add('show');
+                initRope();
             }, 3000);
         });
 
-        // --- EFEK INTERAKTIF ID CARD (GOYANG SAAT DITARIK) ---
+        // SIMULASI FISIKA ELASTIS ID CARD & TALI
         const card = document.getElementById('idCard');
+        const canvas = document.getElementById('ropeCanvas');
+        const ctx = canvas.getContext('2d');
+
         let isDragging = false;
         let startX, startY;
+        let posX = 0, posY = 0;
+        let velX = 0, velY = 0;
 
-        card.addEventListener('mousedown', startDrag);
-        card.addEventListener('touchstart', startDrag);
+        function initRope() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            updatePhysics();
+        }
 
-        window.addEventListener('mousemove', drag);
-        window.addEventListener('touchmove', drag);
+        function drawRope() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            
+            // Menggambar Tali Elastis Mengikuti Gerakan Kartu
+            const anchorX = canvas.width / 2 + posX * 0.5;
+            const anchorY = canvas.height + posY;
+            
+            ctx.quadraticCurveTo(canvas.width / 2, canvas.height / 2, anchorX, anchorY);
+            ctx.strokeStyle = '#444';
+            ctx.lineWidth = 6;
+            ctx.stroke();
 
-        window.addEventListener('mouseup', endDrag);
-        window.addEventListener('touchend', endDrag);
+            ctx.beginPath();
+            ctx.arc(anchorX, anchorY - 4, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#888';
+            ctx.fill();
+        }
+
+        function updatePhysics() {
+            if (!isDragging) {
+                // Perhitungan Gaya Pegas (Spring Physics)
+                let forceX = -posX * 0.15;
+                let forceY = -posY * 0.15;
+
+                velX = (velX + forceX) * 0.75; // Redaman (Damping)
+                velY = (velY + forceY) * 0.75;
+
+                posX += velX;
+                posY += velY;
+            }
+
+            const rotX = posY * -0.15;
+            const rotY = posX * 0.15;
+            card.style.transform = `translate3d(${posX}px, ${posY}px, 0) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            
+            drawRope();
+            requestAnimationFrame(updatePhysics);
+        }
 
         function startDrag(e) {
             isDragging = true;
-            startX = e.clientX || e.touches[0].clientX;
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            startX = clientX - posX;
+            startY = clientY - posY;
         }
 
         function drag(e) {
             if (!isDragging) return;
-            const currentX = e.clientX || e.touches[0].clientX;
-            const diffX = currentX - startX;
-            const rotate = diffX * 0.15; // Mengatur kemiringan saat ditarik
-            card.style.transform = `rotate(${rotate}deg) translateX(${diffX * 0.5}px)`;
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            posX = (clientX - startX) * 0.8;
+            posY = (clientY - startY) * 0.8;
         }
 
         function endDrag() {
-            if (!isDragging) return;
             isDragging = false;
-            // Kembalikan ke posisi semula dengan efek membal
-            card.style.transform = 'rotate(0deg) translateX(0px)';
-            card.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            setTimeout(() => { card.style.transition = 'transform 0.1s ease-out'; }, 500);
         }
+
+        card.addEventListener('mousedown', startDrag);
+        card.addEventListener('touchstart', startDrag);
+        window.addEventListener('mousemove', drag);
+        window.addEventListener('touchmove', drag);
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchend', endDrag);
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        });
     </script>
 </body>
 </html>
