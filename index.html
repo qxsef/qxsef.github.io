@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aldymea N. | QXSEF</title>
+    <title>Aldymea N. | QXSEF Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <style>
         * {
@@ -11,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -19,9 +20,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px 0;
         }
 
         /* PRELOADER */
@@ -57,11 +57,43 @@
             100% { opacity: 0; }
         }
 
+        /* HEADER / NAVIGASI Fiks */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
         /* CONTAINER UTAMA */
         .container {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
+            max-width: 420px;
+            padding: 100px 20px 40px;
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
@@ -73,27 +105,6 @@
             transform: translateY(0);
         }
 
-        /* NAVIGASI MENU */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        nav a:hover, nav a.active {
-            color: #ffffff;
-        }
-
         /* LOGO BRAND */
         .logo-box {
             display: inline-flex;
@@ -101,7 +112,7 @@
             justify-content: center;
             background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 20px;
+            padding: 8px 24px;
             border-radius: 30px;
             margin-bottom: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -116,12 +127,12 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* TALI PANJANG ELASTIS (CANVAS) */
+        /* CANVAS TALI LANYARD */
         .lanyard-container {
             position: relative;
             width: 100%;
-            height: 180px; /* Diperpanjang agar tali lebih panjang */
-            margin-bottom: -10px;
+            height: 220px;
+            margin-bottom: -15px;
         }
 
         canvas#ropeCanvas {
@@ -158,7 +169,7 @@
 
         .photo-frame {
             width: 100%;
-            height: 280px;
+            height: 290px;
             border-radius: 12px;
             overflow: hidden;
             background: #222;
@@ -182,10 +193,11 @@
             transform: rotate(-5deg);
         }
 
-        /* DESKRIPSI TEKS & ANIMASI KETIK */
-        .intro-text {
-            margin-top: 25px;
+        /* SECTION HALAMAN */
+        .section-block {
+            padding: 40px 0;
             text-align: left;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .intro-text h3 {
@@ -203,14 +215,14 @@
             font-size: 2rem;
             font-weight: 800;
             line-height: 1.1;
-            margin: 5px 0 12px 0;
+            margin: 5px 0 15px 0;
         }
 
         .typing-container {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: #b3b3b3;
-            line-height: 1.6;
-            min-height: 90px;
+            line-height: 1.7;
+            min-height: 110px;
         }
 
         .cursor {
@@ -225,9 +237,36 @@
             50% { opacity: 0; }
         }
 
-        /* TOMBOL SOSIAL MEDIA DENGAN LOGO SVG */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-box {
+            background: #151515;
+            border: 1px solid #262626;
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            font-size: 0.88rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .card-box h4 {
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 0.98rem;
+        }
+
+        /* TOMBOL SOSIAL MEDIA */
         .social-links {
-            margin-top: 25px;
+            margin-top: 15px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -264,6 +303,13 @@
             color: #000000;
             border-color: #ffffff;
         }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: #555;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -273,51 +319,92 @@
         <div class="loader-text" id="loaderText">QXSEF</div>
     </div>
 
+    <!-- HEADER & NAVIGASI -->
+    <header>
+        <nav>
+            <a href="#home">Home</a> •
+            <a href="#about">About</a> •
+            <a href="#portfolio">Portfolio</a> •
+            <a href="#prices">Prices</a> •
+            <a href="#testimoni">Testimoni</a>
+        </nav>
+    </header>
+
     <!-- KONTEN UTAMA -->
     <div class="container" id="mainContent">
         
-        <!-- NAVIGASI MENU -->
-        <nav>
-            <a href="#" class="active">Home</a> •
-            <a href="#">About</a> •
-            <a href="#">Portfolio</a> •
-            <a href="#">Prices</a> •
-            <a href="#">Testimoni</a>
-        </nav>
+        <!-- SECTION: HOME -->
+        <section id="home">
+            <div class="logo-box">
+                <span>QXSEF</span>
+            </div>
 
-        <!-- LOGO BRAND -->
-        <div class="logo-box">
-            <span>QXSEF</span>
-        </div>
+            <!-- TALI LANYARD DENGAN TEXT QXSEF -->
+            <div class="lanyard-container">
+                <canvas id="ropeCanvas"></canvas>
+            </div>
 
-        <!-- TALI ID CARD PANJANG -->
-        <div class="lanyard-container">
-            <canvas id="ropeCanvas"></canvas>
-        </div>
-
-        <!-- ID CARD LENTUR -->
-        <div class="id-card-wrapper">
-            <div class="id-card" id="idCard">
-                <div class="photo-frame">
-                    <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
-                    <div class="watermark">Aldymea</div>
+            <!-- ID CARD -->
+            <div class="id-card-wrapper">
+                <div class="id-card" id="idCard">
+                    <div class="photo-frame">
+                        <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
+                        <div class="watermark">Aldymea</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- DESKRIPSI -->
-        <div class="intro-text">
-            <h3>Halo! Saya <span>Aldymea N.</span></h3>
-            <h1>Siswa TJKT.</h1>
-            <div class="typing-container">
-                <span id="typedText"></span><span class="cursor">&nbsp;</span>
+            <div class="intro-text" style="margin-top:25px;">
+                <h3>Halo! Saya <span>Aldymea N.</span></h3>
+                <h1>Siswa TJKT.</h1>
+                <div class="typing-container">
+                    <span id="typedText"></span><span class="cursor">&nbsp;</span>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- SOSIAL MEDIA -->
-        <div class="social-links">
-            <!-- WhatsApp -->
-            <a href="https://wa.me/6281977280287" target="_blank" class="btn">
+        <!-- SECTION: ABOUT -->
+        <section id="about" class="section-block">
+            <div class="section-title">📌 About Me</div>
+            <div class="card-box">
+                Sebagai siswa Teknik Jaringan Komputer dan Telekomunikasi (TJKT), saya mengombinasikan keahlian teknis jaringan dengan dunia kreatif visual. Saya berfokus pada desain grafis, editing video, dan dasar pengembangan antarmuka web.
+            </div>
+        </section>
+
+        <!-- SECTION: PORTFOLIO -->
+        <section id="portfolio" class="section-block">
+            <div class="section-title">📁 Portfolio</div>
+            <div class="card-box">
+                <h4>Design & Editing Content</h4>
+                Pengalaman memproduksi aset visual menggunakan Adobe Photoshop, video kreatif via CapCut, serta proyek pengembangan web modern berbasis HTML/CSS.
+            </div>
+        </section>
+
+        <!-- SECTION: PRICES -->
+        <section id="prices" class="section-block">
+            <div class="section-title">🏷️ Price List Services</div>
+            <div class="card-box">
+                <h4>Desain Grafis / Social Media Kit</h4>
+                Mulai dari pembuatan poster, logo, hingga feed Instagram menarik.
+            </div>
+            <div class="card-box">
+                <h4>Video Editing (Short / Reels / TikTok)</h4>
+                Editing video pendek kreatif lengkap dengan transisi dinamis & subtitle.
+            </div>
+        </section>
+
+        <!-- SECTION: TESTIMONI -->
+        <section id="testimoni" class="section-block">
+            <div class="section-title">💬 Testimoni</div>
+            <div class="card-box">
+                <i>"Hasil editing dan desain rapi, pengerjaan cepat dan komunikatif!"</i>
+                <div style="margin-top:8px; font-weight:bold; color:#fff;">— Client & Partner</div>
+            </div>
+        </section>
+
+        <!-- SOSIAL MEDIA LINKS -->
+        <div class="social-links" style="margin-top:20px;">
+            <a href="https://wa.me/6281977280287?text=Halo%20Aldymea,%20saya%20tertarik%20dengan%20jasa/portfolio%20kamu!" target="_blank" class="btn">
                 <div class="btn-content">
                     <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                     <span>WhatsApp</span>
@@ -325,7 +412,6 @@
                 <span>↗</span>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/quixotea_" target="_blank" class="btn">
                 <div class="btn-content">
                     <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -334,10 +420,14 @@
                 <span>↗</span>
             </a>
         </div>
+
+        <footer>
+            © 2026 Aldymea Nurhakim (QXSEF) • All Rights Reserved
+        </footer>
     </div>
 
     <script>
-        // PRELOADER TEXT
+        // PRELOADER
         const loaderText = document.getElementById('loaderText');
         setTimeout(() => { loaderText.innerText = "Aldymea Nurhakim"; }, 1500);
 
@@ -351,19 +441,19 @@
             }, 3000);
         });
 
-        // ANIMASI TYPEWRITER
-        const textToType = "Saya mahir CapCut, dan familiar VS Code — menghasilkan kode.";
+        // ANIMASI TYPEWRITER DESKRIPSI
+        const textToType = "Saya ahli dalam penggunaan Photoshop, mahir mengedit video di CapCut, serta familiar dengan VS Code untuk pengembangan web. Berpengalaman menghasilkan konten visual yang kreatif dan profesional.";
         let typeIndex = 0;
 
         function startTyping() {
             if (typeIndex < textToType.length) {
                 document.getElementById("typedText").innerHTML += textToType.charAt(typeIndex);
                 typeIndex++;
-                setTimeout(startTyping, 35);
+                setTimeout(startTyping, 30);
             }
         }
 
-        // SIMULASI TALI PANJANG & ELASTIS
+        // SIMULASI TALI LANYARD DENGAN TEXT QXSEF
         const card = document.getElementById('idCard');
         const canvas = document.getElementById('ropeCanvas');
         const ctx = canvas.getContext('2d');
@@ -381,43 +471,75 @@
 
         function drawRope() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const startPointX = canvas.width / 2;
+            const startPointY = 0;
+            const endPointX = canvas.width / 2 + posX;
+            const endPointY = canvas.height + posY;
+
+            // Gambar Tali Utama (Lebar Tali Gantungan)
             ctx.beginPath();
-            
-            // Titik awal tali di atas
-            ctx.moveTo(canvas.width / 2, 0);
-            
-            // Posisi ujung tali yang tersambung ke ID Card
-            const anchorX = canvas.width / 2 + posX * 0.6;
-            const anchorY = canvas.height + posY;
-            
-            // Menggambar Tali Melengkung Dinamis
-            ctx.quadraticCurveTo(canvas.width / 2 + posX * 0.2, canvas.height / 2 + posY * 0.5, anchorX, anchorY);
-            ctx.strokeStyle = '#555';
-            ctx.lineWidth = 5;
+            ctx.moveTo(startPointX, startPointY);
+            ctx.lineTo(endPointX, endPointY);
+            ctx.strokeStyle = '#222222';
+            ctx.lineWidth = 22;
+            ctx.lineCap = 'round';
             ctx.stroke();
 
-            // Gantungan Ring ID Card
+            // Border Pinggir Tali
             ctx.beginPath();
-            ctx.arc(anchorX, anchorY - 4, 6, 0, Math.PI * 2);
-            ctx.fillStyle = '#888';
+            ctx.moveTo(startPointX, startPointY);
+            ctx.lineTo(endPointX, endPointY);
+            ctx.strokeStyle = '#333333';
+            ctx.lineWidth = 24;
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.stroke();
+            ctx.globalCompositeOperation = 'source-over';
+
+            // Cetak Tulisan QXSEF Berulang Pada Tali
+            ctx.save();
+            ctx.translate(startPointX, startPointY);
+            const dx = endPointX - startPointX;
+            const dy = endPointY - startPointY;
+            const angle = Math.atan2(dy, dx);
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            ctx.rotate(angle);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 9px "Plus Jakarta Sans"';
+            ctx.textAlign = 'center';
+
+            const step = 45;
+            for (let d = 25; d < distance - 15; d += step) {
+                ctx.save();
+                ctx.translate(d, 3);
+                ctx.rotate(Math.PI / 2);
+                ctx.fillText('QXSEF', 0, 0);
+                ctx.restore();
+            }
+            ctx.restore();
+
+            // Ring Pengait Metal
+            ctx.beginPath();
+            ctx.arc(endPointX, endPointY - 6, 7, 0, Math.PI * 2);
+            ctx.fillStyle = '#aaaaaa';
             ctx.fill();
         }
 
         function updatePhysics() {
             if (!isDragging) {
-                // Fisika Pegas (Return Spring Force)
-                let forceX = -posX * 0.12;
-                let forceY = -posY * 0.12;
+                let forceX = -posX * 0.15;
+                let forceY = -posY * 0.15;
 
-                velX = (velX + forceX) * 0.80; // Damping
-                velY = (velY + forceY) * 0.80;
+                velX = (velX + forceX) * 0.78;
+                velY = (velY + forceY) * 0.78;
 
                 posX += velX;
                 posY += velY;
             }
 
-            const rotX = posY * -0.12;
-            const rotY = posX * 0.12;
+            const rotX = posY * -0.1;
+            const rotY = posX * 0.1;
             card.style.transform = `translate3d(${posX}px, ${posY}px, 0) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
             
             drawRope();
