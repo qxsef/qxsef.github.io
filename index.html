@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aldymea N. | QXSEF Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -24,40 +24,128 @@
             align-items: center;
         }
 
-        /* PRELOADER */
+        /* ============== PRELOADER FUTURISTIK ============== */
         #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #050505;
+            background: #050608;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.7s ease, visibility 0.7s;
+            overflow: hidden;
+        }
+
+        .loader-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .loader-scanline {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffc8, transparent);
+            box-shadow: 0 0 12px 2px rgba(0,255,200,0.7);
+            animation: scanMove 2.4s linear infinite;
+        }
+
+        @keyframes scanMove {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+
+        .loader-core {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .loader-frame {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-frame span.corner {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00ffc8;
+        }
+
+        .corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .loader-ring {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,255,200,0.15);
+            border-top: 2px solid #00ffc8;
+            border-right: 2px solid #00ffc8;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loader-percent {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #00ffc8;
+            letter-spacing: 1px;
         }
 
         .loader-text {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 3px;
             color: #ffffff;
-            animation: textSwitch 3s forwards;
         }
 
-        @keyframes textSwitch {
-            0% { opacity: 0; transform: translateY(10px); }
-            15% { opacity: 1; transform: translateY(0); }
-            40% { opacity: 1; }
-            50% { opacity: 0; transform: translateY(-10px); }
-            65% { opacity: 1; transform: translateY(0); }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
+        .loader-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #00ffc8;
+            letter-spacing: 2px;
+            opacity: 0.85;
         }
 
-        /* HEADER / NAVIGASI Fiks */
+        .glitch { animation: glitchShift 0.18s steps(2) infinite; }
+
+        @keyframes glitchShift {
+            0% { transform: translate(0,0); }
+            50% { transform: translate(1px,-1px); }
+            100% { transform: translate(-1px,1px); }
+        }
+
+        /* HEADER / NAVIGASI */
         header {
             position: fixed;
             top: 0;
@@ -70,12 +158,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+        nav { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 
         nav a {
             color: #888;
@@ -83,13 +166,27 @@
             font-size: 0.85rem;
             font-weight: 600;
             transition: color 0.3s;
+            padding: 4px 2px;
+            position: relative;
         }
 
-        nav a:hover {
-            color: #ffffff;
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s;
         }
 
-        /* CONTAINER UTAMA */
+        nav a:hover { color: #ffffff; }
+        nav a.active { color: #ffffff; }
+        nav a.active::after { width: 100%; }
+
+        section[id] { scroll-margin-top: 72px; }
+
         .container {
             width: 100%;
             max-width: 420px;
@@ -100,12 +197,8 @@
             transition: opacity 1s ease, transform 1s ease;
         }
 
-        .container.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .container.show { opacity: 1; transform: translateY(0); }
 
-        /* LOGO BRAND */
         .logo-box {
             display: inline-flex;
             align-items: center;
@@ -127,29 +220,19 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* CANVAS TALI LANYARD */
-        .lanyard-container {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            margin-bottom: -15px;
-        }
+        .lanyard-spacer { width: 100%; height: 80px; }
 
         canvas#ropeCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            z-index: 1;
+            z-index: 5;
         }
 
-        /* ID CARD */
-        .id-card-wrapper {
-            position: relative;
-            z-index: 2;
-        }
+        .id-card-wrapper { position: relative; z-index: 6; }
 
         .id-card {
             background: #ffffff;
@@ -163,9 +246,7 @@
             will-change: transform;
         }
 
-        .id-card:active {
-            cursor: grabbing;
-        }
+        .id-card:active { cursor: grabbing; }
 
         .photo-frame {
             width: 100%;
@@ -176,12 +257,7 @@
             position: relative;
         }
 
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
         .watermark {
             position: absolute;
@@ -193,48 +269,28 @@
             transform: rotate(-5deg);
         }
 
-        /* SECTION HALAMAN */
-        .section-block {
-            padding: 40px 0;
-            text-align: left;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
+        .section-block { padding: 40px 0; text-align: left; border-top: 1px solid rgba(255, 255, 255, 0.08); }
 
-        .intro-text h3 {
-            font-size: 1rem;
-            color: #aaa;
-            font-weight: 400;
-        }
+        .intro-text h3 { font-size: 1rem; color: #aaa; font-weight: 400; }
+        .intro-text h3 span { color: #fff; font-weight: 700; }
+        .intro-text h1 { font-size: 2rem; font-weight: 800; line-height: 1.1; margin: 5px 0 15px 0; }
 
-        .intro-text h3 span {
-            color: #fff;
-            font-weight: 700;
-        }
+        .typing-container { font-size: 0.92rem; color: #b3b3b3; line-height: 1.7; min-height: 150px; text-align: left; }
 
-        .intro-text h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin: 5px 0 15px 0;
-        }
+        .cursor { display: inline-block; width: 2px; background-color: #fff; animation: blink 0.7s infinite; }
 
-        .typing-container {
-            font-size: 0.92rem;
-            color: #b3b3b3;
-            line-height: 1.7;
-            min-height: 110px;
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            background-color: #fff;
-            animation: blink 0.7s infinite;
-        }
+        .skill-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .skill-badge {
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            color: #ddd;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
         }
 
         .section-title {
@@ -258,19 +314,95 @@
             line-height: 1.5;
         }
 
-        .card-box h4 {
-            color: #fff;
-            margin-bottom: 5px;
-            font-size: 0.98rem;
+        .card-box h4 { color: #fff; margin-bottom: 5px; font-size: 0.98rem; }
+
+        /* ============== PORTFOLIO SLIDER ============== */
+        .slider-wrapper { position: relative; }
+
+        .slider-track {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 6px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
 
-        /* TOMBOL SOSIAL MEDIA */
-        .social-links {
-            margin-top: 15px;
+        .slider-track::-webkit-scrollbar { display: none; }
+
+        .slide-card {
+            flex: 0 0 82%;
+            scroll-snap-align: center;
+            border-radius: 16px;
+            padding: 20px;
+            min-height: 190px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            justify-content: flex-end;
+            border: 1px solid #262626;
+            position: relative;
+            overflow: hidden;
         }
+
+        .slide-card .tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .slide-card .icon { font-size: 2rem; position: absolute; top: 14px; right: 16px; opacity: 0.85; }
+        .slide-card h4 { font-size: 1.05rem; margin-bottom: 4px; }
+        .slide-card p { font-size: 0.8rem; color: rgba(255,255,255,0.85); line-height: 1.4; }
+
+        .slide-1 { background: linear-gradient(150deg,#1f2937,#0f172a); }
+        .slide-2 { background: linear-gradient(150deg,#3b1e54,#1a0f2b); }
+        .slide-3 { background: linear-gradient(150deg,#0f3d3e,#08191a); }
+
+        .slider-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+
+        .slider-dots span { width: 6px; height: 6px; border-radius: 50%; background: #333; transition: 0.3s; }
+
+        .slider-dots span.active { background: #fff; width: 18px; border-radius: 4px; }
+
+        /* ============== KESAN & PESAN ============== */
+        .comment-card {
+            background: #151515;
+            border: 1px solid #262626;
+            padding: 16px 18px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .comment-card.visible { opacity: 1; transform: translateY(0); }
+
+        .comment-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+
+        .comment-name { font-weight: 700; color: #fff; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+
+        .human-tag {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #00ffc8;
+            border: 1px solid rgba(0,255,200,0.4);
+            padding: 1px 6px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .stars { color: #ffcc4d; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 6px; }
+        .comment-text { font-size: 0.85rem; color: #aaa; line-height: 1.5; }
+
+        .social-links { margin-top: 15px; display: flex; flex-direction: column; gap: 12px; }
 
         .btn {
             background: #181818;
@@ -286,69 +418,59 @@
             justify-content: space-between;
         }
 
-        .btn-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .btn-content { display: flex; align-items: center; gap: 12px; }
+        .btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
 
-        .btn svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-
-        .btn:hover {
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 0.75rem;
-            color: #555;
-            text-align: center;
-        }
+        footer { margin-top: 40px; font-size: 0.75rem; color: #555; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- PRELOADER -->
+    <!-- PRELOADER FUTURISTIK -->
     <div id="loader">
-        <div class="loader-text" id="loaderText">QXSEF</div>
+        <div class="loader-grid"></div>
+        <div class="loader-scanline"></div>
+        <div class="loader-core">
+            <div class="loader-frame">
+                <span class="corner tl"></span>
+                <span class="corner tr"></span>
+                <span class="corner bl"></span>
+                <span class="corner br"></span>
+                <div class="loader-ring"></div>
+                <div class="loader-percent" id="loaderPercent">0%</div>
+            </div>
+            <div class="loader-text" id="loaderText">QXSEF</div>
+            <div class="loader-sub" id="loaderSub">INITIALIZING PROFILE...</div>
+        </div>
     </div>
+
+    <!-- CANVAS TALI LANYARD -->
+    <canvas id="ropeCanvas"></canvas>
 
     <!-- HEADER & NAVIGASI -->
     <header>
-        <nav>
-            <a href="#home">Home</a> •
+        <nav id="mainNav">
+            <a href="#home" class="active">Home</a> •
             <a href="#about">About</a> •
             <a href="#portfolio">Portfolio</a> •
-            <a href="#prices">Prices</a> •
-            <a href="#testimoni">Testimoni</a>
+            <a href="#kesan">Kesan</a>
         </nav>
     </header>
 
     <!-- KONTEN UTAMA -->
     <div class="container" id="mainContent">
-        
+
         <!-- SECTION: HOME -->
         <section id="home">
-            <div class="logo-box">
-                <span>QXSEF</span>
-            </div>
+            <div class="logo-box"><span>QXSEF</span></div>
 
-            <!-- TALI LANYARD DENGAN TEXT QXSEF -->
-            <div class="lanyard-container">
-                <canvas id="ropeCanvas"></canvas>
-            </div>
+            <div class="lanyard-spacer" id="lanyardSpacer"></div>
 
-            <!-- ID CARD -->
             <div class="id-card-wrapper">
                 <div class="id-card" id="idCard">
                     <div class="photo-frame">
-                        <img src="https://github.com/qxsef.png" alt="Aldymea Nurhakim">
+                        <img src="https://github.com/qxsef.png?size=460" alt="Aldymea Nurhakim">
                         <div class="watermark">Aldymea</div>
                     </div>
                 </div>
@@ -360,6 +482,13 @@
                 <div class="typing-container">
                     <span id="typedText"></span><span class="cursor">&nbsp;</span>
                 </div>
+                <div class="skill-badges">
+                    <span class="skill-badge">Adobe Photoshop</span>
+                    <span class="skill-badge">CapCut</span>
+                    <span class="skill-badge">VS Code</span>
+                    <span class="skill-badge">Laravel 12</span>
+                    <span class="skill-badge">HTML / CSS</span>
+                </div>
             </div>
         </section>
 
@@ -367,38 +496,66 @@
         <section id="about" class="section-block">
             <div class="section-title">📌 About Me</div>
             <div class="card-box">
-                Sebagai siswa Teknik Jaringan Komputer dan Telekomunikasi (TJKT), saya mengombinasikan keahlian teknis jaringan dengan dunia kreatif visual. Saya berfokus pada desain grafis, editing video, dan dasar pengembangan antarmuka web.
+                Sebagai siswa Teknik Jaringan Komputer dan Telekomunikasi (TJKT), saya mengombinasikan keahlian teknis jaringan dengan dunia kreatif visual. Saya berfokus pada desain grafis, editing video, dan pengembangan web. Selain mempelajari dasar-dasar jaringan seperti konfigurasi perangkat dan troubleshooting, saya juga aktif mengasah kemampuan di bidang desain menggunakan Adobe Photoshop, editing konten video pendek dengan CapCut, serta membangun aplikasi web menggunakan HTML, CSS, dan framework Laravel 12 lewat VS Code. Saya senang mengeksplorasi hal baru, terbuka untuk kolaborasi proyek, dan selalu berusaha memberikan hasil kerja yang rapi, tepat waktu, dan sesuai kebutuhan klien.
             </div>
         </section>
 
-        <!-- SECTION: PORTFOLIO -->
+        <!-- SECTION: PORTFOLIO (SLIDER) -->
         <section id="portfolio" class="section-block">
             <div class="section-title">📁 Portfolio</div>
-            <div class="card-box">
-                <h4>Design & Editing Content</h4>
-                Pengalaman memproduksi aset visual menggunakan Adobe Photoshop, video kreatif via CapCut, serta proyek pengembangan web modern berbasis HTML/CSS.
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide-card slide-1">
+                        <span class="tag">DESIGN</span>
+                        <span class="icon">🎨</span>
+                        <h4>Poster & Social Media Kit</h4>
+                        <p>Desain poster, logo, dan feed Instagram menggunakan Adobe Photoshop.</p>
+                    </div>
+                    <div class="slide-card slide-2">
+                        <span class="tag">EDITING</span>
+                        <span class="icon">🎬</span>
+                        <h4>Video Editing (Reels/TikTok)</h4>
+                        <p>Editing video pendek kreatif dengan transisi dinamis & subtitle di CapCut.</p>
+                    </div>
+                    <div class="slide-card slide-3">
+                        <span class="tag">DEVELOPMENT</span>
+                        <span class="icon">💻</span>
+                        <h4>Web Development</h4>
+                        <p>Membangun tampilan & aplikasi web dengan HTML, CSS, dan Laravel 12.</p>
+                    </div>
+                </div>
+                <div class="slider-dots" id="sliderDots">
+                    <span class="active"></span><span></span><span></span>
+                </div>
             </div>
         </section>
 
-        <!-- SECTION: PRICES -->
-        <section id="prices" class="section-block">
-            <div class="section-title">🏷️ Price List Services</div>
-            <div class="card-box">
-                <h4>Desain Grafis / Social Media Kit</h4>
-                Mulai dari pembuatan poster, logo, hingga feed Instagram menarik.
-            </div>
-            <div class="card-box">
-                <h4>Video Editing (Short / Reels / TikTok)</h4>
-                Editing video pendek kreatif lengkap dengan transisi dinamis & subtitle.
-            </div>
-        </section>
+        <!-- SECTION: KESAN & PESAN -->
+        <section id="kesan" class="section-block">
+            <div class="section-title">🌟 Kesan & Pesan</div>
 
-        <!-- SECTION: TESTIMONI -->
-        <section id="testimoni" class="section-block">
-            <div class="section-title">💬 Testimoni</div>
-            <div class="card-box">
-                <i>"Hasil editing dan desain rapi, pengerjaan cepat dan komunikatif!"</i>
-                <div style="margin-top:8px; font-weight:bold; color:#fff;">— Client & Partner</div>
+            <div class="comment-card">
+                <div class="comment-head">
+                    <span class="comment-name">Naufal R. <span class="human-tag">/human</span></span>
+                </div>
+                <div class="stars">★★★★★</div>
+                <div class="comment-text">Anaknya jago banget desain, tiap ada tugas edit poster kelas pasti larinya ke Aldymea. Cepat dan rapi!</div>
+            </div>
+
+            <div class="comment-card">
+                <div class="comment-head">
+                    <span class="comment-name">Bintang A. <span class="human-tag">/human</span></span>
+                </div>
+                <div class="stars">★★★★★</div>
+                <div class="comment-text">Dulu satu kelas waktu praktik jaringan, tapi ternyata jago juga bikin website & video editing. Multitalent!</div>
+            </div>
+
+            <div class="comment-card">
+                <div class="comment-head">
+                    <span class="comment-name">Kirana D. <span class="human-tag">/human</span></span>
+                </div>
+                <div class="stars">★★★★★</div>
+                <div class="comment-text">Orangnya asik diajak diskusi, kalau minta tolong edit video hasilnya selalu di luar ekspektasi.</div>
             </div>
         </section>
 
@@ -427,34 +584,107 @@
     </div>
 
     <script>
-        // PRELOADER
+        // ============== PRELOADER FUTURISTIK ==============
         const loaderText = document.getElementById('loaderText');
-        setTimeout(() => { loaderText.innerText = "Aldymea Nurhakim"; }, 1500);
+        const loaderPercent = document.getElementById('loaderPercent');
+        const loaderSub = document.getElementById('loaderSub');
+        const subMessages = ["INITIALIZING PROFILE...", "LOADING ASSETS...", "SYNCING DATA...", "READY."];
+        let subIndex = 0;
+
+        const subInterval = setInterval(() => {
+            subIndex = (subIndex + 1) % subMessages.length;
+            loaderSub.innerText = subMessages[subIndex];
+        }, 650);
+
+        let pct = 0;
+        const pctInterval = setInterval(() => {
+            pct += Math.floor(Math.random() * 9) + 3;
+            if (pct >= 100) { pct = 100; clearInterval(pctInterval); }
+            loaderPercent.innerText = pct + '%';
+        }, 220);
+
+        setTimeout(() => {
+            loaderText.classList.add('glitch');
+            setTimeout(() => {
+                loaderText.classList.remove('glitch');
+                loaderText.innerText = "Aldymea Nurhakim";
+            }, 250);
+        }, 1500);
 
         window.addEventListener('load', () => {
             setTimeout(() => {
+                clearInterval(subInterval);
+                clearInterval(pctInterval);
                 document.getElementById('loader').style.opacity = '0';
                 document.getElementById('loader').style.visibility = 'hidden';
                 document.getElementById('mainContent').classList.add('show');
                 initRope();
                 startTyping();
-            }, 3000);
+                initCommentReveal();
+            }, 2600);
         });
 
-        // ANIMASI TYPEWRITER DESKRIPSI
-        const textToType = "Saya ahli dalam penggunaan Photoshop, mahir mengedit video di CapCut, serta familiar dengan VS Code untuk pengembangan web. Berpengalaman menghasilkan konten visual yang kreatif dan profesional.";
+        // ============== TYPEWRITER DESKRIPSI ==============
+        const textToType = "Saya ahli dalam penggunaan Adobe Photoshop untuk desain grafis, mahir mengedit video kreatif di CapCut lengkap dengan transisi dan subtitle, serta familiar dengan VS Code untuk membangun aplikasi web menggunakan HTML, CSS, dan Laravel 12. Selama ini saya sudah mengerjakan berbagai proyek kecil mulai dari poster, konten media sosial, hingga video pendek untuk kebutuhan promosi. Saya selalu berusaha memberikan hasil yang rapi, komunikatif, dan tepat waktu, serta terbuka untuk berdiskusi menyesuaikan kebutuhan setiap klien.";
         let typeIndex = 0;
 
         function startTyping() {
             if (typeIndex < textToType.length) {
                 document.getElementById("typedText").innerHTML += textToType.charAt(typeIndex);
                 typeIndex++;
-                setTimeout(startTyping, 30);
+                setTimeout(startTyping, 18);
             }
         }
 
-        // SIMULASI TALI LANYARD DENGAN TEXT QXSEF
+        // ============== NAV AKTIF SAAT SCROLL ==============
+        const navLinks = document.querySelectorAll('#mainNav a');
+        const navSections = document.querySelectorAll('section[id]');
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`#mainNav a[href="#${entry.target.id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+        navSections.forEach(sec => navObserver.observe(sec));
+
+        // ============== PORTFOLIO SLIDER (SWIPE) ==============
+        const sliderTrack = document.getElementById('sliderTrack');
+        const dots = document.querySelectorAll('#sliderDots span');
+
+        sliderTrack.addEventListener('scroll', () => {
+            const cardWidth = sliderTrack.firstElementChild.getBoundingClientRect().width + 14;
+            const index = Math.round(sliderTrack.scrollLeft / cardWidth);
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const cardWidth = sliderTrack.firstElementChild.getBoundingClientRect().width + 14;
+                sliderTrack.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+            });
+        });
+
+        // ============== ANIMASI NAIK & MEMUDAR UNTUK KESAN & PESAN ==============
+        function initCommentReveal() {
+            const comments = document.querySelectorAll('.comment-card');
+            const commentObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+            comments.forEach(c => commentObserver.observe(c));
+        }
+
+        // ============== TALI LANYARD ELASTIS ==============
         const card = document.getElementById('idCard');
+        const spacer = document.getElementById('lanyardSpacer');
         const canvas = document.getElementById('ropeCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -463,54 +693,62 @@
         let posX = 0, posY = 0;
         let velX = 0, velY = 0;
 
+        const MAX_STRETCH_X = 90;
+        const MAX_STRETCH_Y = 260;
+
         function initRope() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+            resizeCanvas();
             updatePhysics();
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
 
         function drawRope() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const startPointX = canvas.width / 2;
-            const startPointY = 0;
-            const endPointX = canvas.width / 2 + posX;
-            const endPointY = canvas.height + posY;
 
-            // Gambar Tali Utama (Lebar Tali Gantungan)
-            ctx.beginPath();
-            ctx.moveTo(startPointX, startPointY);
-            ctx.lineTo(endPointX, endPointY);
-            ctx.strokeStyle = '#222222';
-            ctx.lineWidth = 22;
-            ctx.lineCap = 'round';
-            ctx.stroke();
+            const anchorRect = spacer.getBoundingClientRect();
+            const startPointX = anchorRect.left + anchorRect.width / 2;
+            const startPointY = anchorRect.top;
 
-            // Border Pinggir Tali
+            const cardRect = card.getBoundingClientRect();
+            const endPointX = cardRect.left + cardRect.width / 2;
+            const endPointY = cardRect.top - 6;
+
+            const dx = endPointX - startPointX;
+            const dy = endPointY - startPointY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx);
+
+            if (distance < 1) return;
+
             ctx.beginPath();
             ctx.moveTo(startPointX, startPointY);
             ctx.lineTo(endPointX, endPointY);
             ctx.strokeStyle = '#333333';
             ctx.lineWidth = 24;
-            ctx.globalCompositeOperation = 'destination-over';
+            ctx.lineCap = 'round';
             ctx.stroke();
-            ctx.globalCompositeOperation = 'source-over';
 
-            // Cetak Tulisan QXSEF Berulang Pada Tali
+            ctx.beginPath();
+            ctx.moveTo(startPointX, startPointY);
+            ctx.lineTo(endPointX, endPointY);
+            ctx.strokeStyle = '#1c1c1c';
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
             ctx.save();
             ctx.translate(startPointX, startPointY);
-            const dx = endPointX - startPointX;
-            const dy = endPointY - startPointY;
-            const angle = Math.atan2(dy, dx);
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
             ctx.rotate(angle);
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 9px "Plus Jakarta Sans"';
             ctx.textAlign = 'center';
 
-            const step = 45;
-            for (let d = 25; d < distance - 15; d += step) {
+            const step = 42;
+            for (let d = 24; d < distance - 14; d += step) {
                 ctx.save();
                 ctx.translate(d, 3);
                 ctx.rotate(Math.PI / 2);
@@ -519,29 +757,36 @@
             }
             ctx.restore();
 
-            // Ring Pengait Metal
             ctx.beginPath();
-            ctx.arc(endPointX, endPointY - 6, 7, 0, Math.PI * 2);
-            ctx.fillStyle = '#aaaaaa';
+            ctx.arc(startPointX, startPointY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#111111';
             ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(endPointX, endPointY, 7, 0, Math.PI * 2);
+            ctx.fillStyle = '#c9c9c9';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(endPointX, endPointY, 7, 0, Math.PI * 2);
+            ctx.strokeStyle = '#888888';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
         }
 
         function updatePhysics() {
             if (!isDragging) {
-                let forceX = -posX * 0.15;
-                let forceY = -posY * 0.15;
-
-                velX = (velX + forceX) * 0.78;
-                velY = (velY + forceY) * 0.78;
-
+                let forceX = -posX * 0.12;
+                let forceY = -posY * 0.12;
+                velX = (velX + forceX) * 0.80;
+                velY = (velY + forceY) * 0.80;
                 posX += velX;
                 posY += velY;
             }
 
-            const rotX = posY * -0.1;
-            const rotY = posX * 0.1;
+            const rotX = posY * -0.08;
+            const rotY = posX * 0.08;
             card.style.transform = `translate3d(${posX}px, ${posY}px, 0) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-            
+
             drawRope();
             requestAnimationFrame(updatePhysics);
         }
@@ -558,25 +803,28 @@
             if (!isDragging) return;
             const clientX = e.clientX || (e.touches && e.touches[0].clientX);
             const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-            
-            posX = (clientX - startX);
-            posY = (clientY - startY);
+            let rawX = clientX - startX;
+            let rawY = clientY - startY;
+            posX = elasticClamp(rawX, MAX_STRETCH_X);
+            posY = elasticClamp(rawY, MAX_STRETCH_Y);
         }
 
-        function endDrag() {
-            isDragging = false;
+        function elasticClamp(value, max) {
+            if (Math.abs(value) <= max) return value;
+            const over = Math.abs(value) - max;
+            const damped = max + Math.sqrt(over) * 6;
+            return value < 0 ? -damped : damped;
         }
+
+        function endDrag() { isDragging = false; }
 
         card.addEventListener('mousedown', startDrag);
-        card.addEventListener('touchstart', startDrag);
+        card.addEventListener('touchstart', startDrag, { passive: true });
         window.addEventListener('mousemove', drag);
-        window.addEventListener('touchmove', drag);
+        window.addEventListener('touchmove', drag, { passive: true });
         window.addEventListener('mouseup', endDrag);
         window.addEventListener('touchend', endDrag);
-        window.addEventListener('resize', () => {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        });
+        window.addEventListener('resize', resizeCanvas);
     </script>
 </body>
 </html>
